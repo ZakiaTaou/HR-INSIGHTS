@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+.venv/
+venv/
+
+# VS Code
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Environment variables
+.env
+
+# SQLite
+*.db
+*.sqlite3
+
+# Power BI
+*.pbix.autosave
+
+# Excel temporary files
+~$*.xlsx
+~$*.xls
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Private data
+data/raw/
