@@ -18,8 +18,37 @@ def clean_column_names(df: pd.DataFrame) -> pd.DataFrame:
     """
     df.columns = (df.columns
                   .str.strip()  # Supprime les espaces au début et à la fin
-                  .str.replace(' ', '_')  # Remplace les espaces par des underscores
+                  .str.replace(r"\s+", "_", regex=True)  # Remplace les espaces par des underscores
                   .str.lower())  # Convertit les noms de colonnes en minuscules
+    # Renommage métier
+    column_mapping = {
+        "n": "id",
+        "p.p.r.": "ppr",
+        "matricule": "matricule",
+        "noms_et_prénoms": "nom_prenom",
+        "date_de_naissances": "date_naissance",
+        "date_de_recrutement": "date_recrutement",
+        "date_de_mise_à_la_retraite": "date_retraite",
+        "sexe": "sexe",
+        "c.i.n.": "cin",
+        "date_de_titularisation": "date_titularisation",
+        "n°_affiliation_à_la_c.m.r": "numero_affiliation_cmr",
+        "date_d'affiliation_à_la_c.m.r.": "date_affiliation_cmr",
+        "grade": "grade",
+        "echelle": "echelle",
+        "echellon": "echelon",
+        "indice": "indice",
+        "date_d'échelon": "date_echelon",
+        "n°_d'arrêté": "numero_arrete",
+        "date_d'arrêté": "date_arrete",
+        "date_de_grade": "date_grade",
+        "observations": "observations",
+        "unnamed:_21": "unnamed_21",
+        "@": "at",
+        "statut": "statut",
+    }
+
+    df = df.rename(columns=column_mapping)
     return df
 
 def remove_duplicates(df: pd.DataFrame) -> pd.DataFrame:
