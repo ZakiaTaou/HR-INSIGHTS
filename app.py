@@ -1,5 +1,6 @@
 from pathlib import Path
 import streamlit as st
+from src.export import export_processed_data
 from src.data_loader import load_excel
 from src.data_cleaning import (
     clean_column_names,
@@ -72,3 +73,14 @@ col2.metric("Hommes", male_count)
 col3.metric("Femmes", female_count)
 col4.metric("Âge moyen", f"{average_age:.1f} ans")
 col5.metric("Ancienneté", f"{average_seniority:.1f} ans")
+
+# ==========================
+# Export du dataset
+# ==========================
+
+output_file = Path("data/processed/hr_dataset_clean.xlsx")
+
+export_processed_data(
+    df=df,
+    output_path=output_file,
+)
