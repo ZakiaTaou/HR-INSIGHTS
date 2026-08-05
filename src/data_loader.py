@@ -4,13 +4,26 @@ import pandas as pd
 from pathlib import Path
 # fonction reçoit le chemin d'un fichier Excel  et retourne son contenu sous forme de DataFrame Pandas.
 
-def load_excel(file_path: Path) -> pd.DataFrame:
+def load_excel(file_path: str | Path) -> pd.DataFrame:
+    """
+    Charge un fichier Excel.
+
+    Parameters
+    ----------
+    file_path : str | Path
+        Chemin du fichier Excel.
+
+    Returns
+    -------
+    pd.DataFrame
+        Données chargées.
+    """
+
+    file_path = Path(file_path)
+
     if not file_path.exists():
-        # Si le fichier n'existe pas, on arrête le programme
-        # en générant une erreur explicite.
         raise FileNotFoundError(
             f"Le fichier '{file_path}' est introuvable."
         )
-    # Si le fichier existe, Pandas le lit
-    # puis retourne les données sous forme de DataFrame.
+
     return pd.read_excel(file_path)
