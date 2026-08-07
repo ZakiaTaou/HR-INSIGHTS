@@ -19,6 +19,15 @@ from src.business_metrics import (
     get_gender_distribution,
     get_average_age,
     get_average_seniority,
+    get_retirement_summary,
+)
+from src.visualizations import (
+    create_gender_pie_chart,
+    create_grade_bar_chart,
+    create_scale_bar_chart,
+    create_step_bar_chart,
+    create_age_histogram,
+    create_seniority_histogram,
 )
 
 
@@ -73,6 +82,65 @@ col2.metric("Hommes", male_count)
 col3.metric("Femmes", female_count)
 col4.metric("Âge moyen", f"{average_age:.1f} ans")
 col5.metric("Ancienneté", f"{average_seniority:.1f} ans")
+
+st.divider()
+
+# ==========================
+# Visualisations
+# ==========================
+
+tab_demo, tab_grille, tab_retraite = st.tabs(
+    ["👥 Démographie", "📋 Grille indiciaire", "🏖️ Retraite"]
+)
+
+with tab_demo:
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.plotly_chart(
+            create_gender_pie_chart(df),
+            use_container_width=True,
+        )
+        st.plotly_chart(
+            create_age_histogram(df),
+            use_container_width=True,
+        )
+
+    with col_right:
+        st.plotly_chart(
+            create_grade_bar_chart(df),
+            use_container_width=True,
+        )
+        st.plotly_chart(
+            create_seniority_histogram(df),
+            use_container_width=True,
+        )
+
+with tab_grille:
+    col_left, col_right = st.columns(2)
+
+    with col_left:
+        st.plotly_chart(
+            create_scale_bar_chart(df),
+            use_container_width=True,
+        )
+
+    with col_right:
+        st.plotly_chart(
+            create_step_bar_chart(df),
+            use_container_width=True,
+        )
+
+with tab_retraite:
+    st.subheader("Synthèse des départs à la retraite")
+
+    retirement_summary = get_retirement_summary(df)
+
+    st.dataframe(
+        retirement_summary,
+        use_container_width=True,
+        hide_index=True,
+    )
 
 # ==========================
 # Export du dataset
